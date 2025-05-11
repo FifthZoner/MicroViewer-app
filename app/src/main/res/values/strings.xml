@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Micro Viewer</string>
+    <string name="title_manufacturers">Manufacturers</string>
+    <string name="title_categories">Categories</string>
+</resources>
