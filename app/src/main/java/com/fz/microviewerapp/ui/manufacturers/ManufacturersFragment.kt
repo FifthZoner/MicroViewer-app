@@ -1,32 +1,22 @@
 package com.fz.microviewerapp.ui.manufacturers
 
-import android.app.DownloadManager
-import android.content.Context
-import android.net.Uri
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.view.children
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fz.microviewerapp.databinding.FragmentManufacturersBinding
-import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
+import com.fz.microviewerapp.ApiAddress
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.URL
-import kotlin.coroutines.CoroutineContext
-import kotlinx.serialization.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonObject
@@ -54,7 +44,7 @@ class ManufacturersFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val result = withContext(Dispatchers.IO) {
-                    URL("http://192.168.0.233:9080/manufacturers").readText()
+                    URL(ApiAddress() + "manufacturers").readText()
                 }
                 // now let's parse the json
                 val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;
@@ -63,14 +53,19 @@ class ManufacturersFragment : Fragment() {
                     val button : Button = Button(context);
                     button.text = name.jsonObject["man_name"].toString().removeSurrounding("\"")
                     button.isAllCaps = false;
-                    button.id = Integer.parseInt(name.jsonObject["man_id"].toString().removeSurrounding("\""))
                     button.setOnClickListener {
-                        val k = button.id
+                        val intent = Intent(context, ManufacturerBoards::class.java)
+                        val man_id = name.jsonObject["man_id"].toString().removeSurrounding("\"").toLong()
+                        intent.putExtra("man_id", man_id)
+                        startActivity(intent)
                     }
                     (binding.manufacturersList.get(0) as LinearLayout).addView(button);
                 }
+                binding.loadingText.text = ""
             } catch (e: Exception) {
                 e.printStackTrace()
+                binding.loadingText.textSize /= 2f;
+                binding.loadingText.text = "Error:\n" +  e.message;
             }
         }
 

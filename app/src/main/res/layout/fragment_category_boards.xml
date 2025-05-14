@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/category_boards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.manufacturers.ManufacturersFragment">
+        tools:context=".ui.main.CategoryBoardsFragment">
 
     <TextView
-            android:id="@+id/loading_text"
+            android:id="@+id/cat_boa_loading_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -15,7 +16,9 @@
             android:layout_marginEnd="8dp"
             android:textAlignment="center"
             android:textSize="36sp"
-            android:text="Loading..."
+            android:text="Loading boards..."
+            android:gravity="center"
+            android:layout_gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -23,17 +26,19 @@
             android:paddingTop="?attr/actionBarSize"/>
 
     <ScrollView
-            android:id="@+id/manufacturers_list"
+            android:id="@+id/boards_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout_editor_absoluteX="0dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.5">
+            app:layout_constraintVertical_bias="0.5"
+            android:paddingTop="?attr/actionBarSize">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"></LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

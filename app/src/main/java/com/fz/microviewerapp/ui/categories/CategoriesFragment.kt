@@ -8,6 +8,21 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fz.microviewerapp.databinding.FragmentCategoriesBinding
+import androidx.lifecycle.lifecycleScope
+import com.fz.microviewerapp.ApiAddress
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.URL
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.jsonObject
+import android.widget.Button
+import android.content.Intent
+import android.widget.LinearLayout
+import androidx.core.view.get
+import com.fz.microviewerapp.ui.CategoryBoards
+import kotlin.jvm.java
 
 class CategoriesFragment : Fragment() {
 
@@ -28,9 +43,32 @@ class CategoriesFragment : Fragment() {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textCategories
-        categoriesViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val result = withContext(Dispatchers.IO) {
+                    URL(ApiAddress() + "categories").readText()
+                }
+                // now let's parse the json
+                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;
+                val array = json["categories"] as JsonArray
+                for (name in array) {
+                    val button : Button = Button(context);
+                    button.text = name.jsonObject["cat_name"].toString().removeSurrounding("\"")
+                    button.isAllCaps = false;
+                    button.setOnClickListener {
+                        val intent = Intent(context, CategoryBoards::class.java)
+                        val cat_id = name.jsonObject["cat_id"].toString().removeSurrounding("\"").toLong()
+                        intent.putExtra("cat_id", cat_id)
+                        startActivity(intent)
+                    }
+                    (binding.categoriesList.get(0) as LinearLayout).addView(button);
+                }
+                binding.loadingText.text = ""
+            } catch (e: Exception) {
+                e.printStackTrace()
+                binding.loadingText.textSize /= 2f;
+                binding.loadingText.text = "Error:\n" +  e.message;
+            }
         }
         return root
     }

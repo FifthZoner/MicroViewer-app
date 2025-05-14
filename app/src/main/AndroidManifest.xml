@@ -3,6 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
             android:allowBackup="true"
@@ -15,6 +16,15 @@
             android:theme="@style/Theme.MicroViewerApp"
             android:usesCleartextTraffic="true"
             tools:targetApi="31">
+        <activity
+                android:name=".ui.CategoryBoards"
+                android:exported="false" />
+        <activity
+                android:name=".ActivityDetails"
+                android:exported="false" />
+        <activity
+                android:name=".ui.manufacturers.ManufacturerBoards"
+                android:exported="false" />
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
