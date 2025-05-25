@@ -59,6 +59,7 @@ class CategoriesFragment : Fragment() {
                         val intent = Intent(context, CategoryBoards::class.java)
                         val cat_id = name.jsonObject["cat_id"].toString().removeSurrounding("\"").toLong()
                         intent.putExtra("cat_id", cat_id)
+                        intent.putExtra("cat_name", name.jsonObject["cat_name"].toString().removeSurrounding("\""))
                         startActivity(intent)
                     }
                     (binding.categoriesList.get(0) as LinearLayout).addView(button);

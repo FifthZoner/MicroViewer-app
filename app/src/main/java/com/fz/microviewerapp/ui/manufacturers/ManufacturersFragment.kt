@@ -57,6 +57,7 @@ class ManufacturersFragment : Fragment() {
                         val intent = Intent(context, ManufacturerBoards::class.java)
                         val man_id = name.jsonObject["man_id"].toString().removeSurrounding("\"").toLong()
                         intent.putExtra("man_id", man_id)
+                        intent.putExtra("man_name", name.jsonObject["man_name"].toString().removeSurrounding("\""))
                         startActivity(intent)
                     }
                     (binding.manufacturersList.get(0) as LinearLayout).addView(button);

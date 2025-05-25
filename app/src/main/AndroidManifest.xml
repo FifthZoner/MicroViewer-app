@@ -9,22 +9,23 @@
             android:allowBackup="true"
             android:dataExtractionRules="@xml/data_extraction_rules"
             android:fullBackupContent="@xml/backup_rules"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/img"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@mipmap/img"
             android:supportsRtl="true"
             android:theme="@style/Theme.MicroViewerApp"
             android:usesCleartextTraffic="true"
             tools:targetApi="31">
         <activity
                 android:name=".ui.CategoryBoards"
-                android:exported="false" />
+                android:label="@string/category_boards_label"/>
         <activity
                 android:name=".ActivityDetails"
-                android:exported="false" />
+                android:label="@string/details_label" />
         <activity
                 android:name=".ui.manufacturers.ManufacturerBoards"
-                android:exported="false" />
+                android:exported="false"
+                android:label="@string/manufacturer_boards_label"/>
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
