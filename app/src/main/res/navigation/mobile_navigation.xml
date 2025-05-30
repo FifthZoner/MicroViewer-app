@@ -25,4 +25,11 @@
             android:name="com.fz.microviewerapp.ui.manufacturers.ManufacturersBoardList"
             android:label="fragment_manufacturers_board_list"
             tools:layout="@layout/fragment_manufacturers_board_list" />
+
+    <fragment
+            android:id="@+id/navigation_search"
+            android:name="com.fz.microviewerapp.ui.SearchFragment"
+            android:label="@string/title_search"
+            tools:layout="@layout/fragment_search" />
+
 </navigation>

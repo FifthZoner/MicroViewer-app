@@ -1,6 +1,7 @@
 package com.fz.microviewerapp
 
 import android.os.Bundle
+import android.view.Menu
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -26,10 +27,11 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_manufacturers, R.id.navigation_categories
+                R.id.navigation_manufacturers, R.id.navigation_categories, R.id.navigation_search
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
         navView.setupWithNavController(navController)
     }
 }

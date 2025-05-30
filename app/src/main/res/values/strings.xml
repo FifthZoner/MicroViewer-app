@@ -2,6 +2,8 @@
     <string name="app_name">Micro Viewer</string>
     <string name="title_manufacturers">Manufacturers</string>
     <string name="title_categories">Categories</string>
+    <string name="title_search">Search</string>
+    <string name="search_hint">Board name here</string>
     <string name="manufacturer_boards_label">Manufacturer boards</string>
     <string name="details_label">Details</string>
     <string name="category_boards_label">Category boards</string>
