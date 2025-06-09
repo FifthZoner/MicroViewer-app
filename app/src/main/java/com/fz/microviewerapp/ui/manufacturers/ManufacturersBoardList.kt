@@ -13,6 +13,7 @@ import androidx.core.view.get
 import androidx.lifecycle.lifecycleScope
 import com.fz.microviewerapp.ActivityDetails
 import com.fz.microviewerapp.ApiAddress
+import com.fz.microviewerapp.DownloadJSON
 import com.fz.microviewerapp.R
 import com.fz.microviewerapp.databinding.ActivityManufacturerBoardsBinding
 import com.fz.microviewerapp.databinding.FragmentManufacturersBinding
@@ -51,12 +52,13 @@ class ManufacturersBoardList : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val address = ApiAddress() + "manufacturer/" + man_id.toString()
+                /*val address = ApiAddress() + "manufacturer/" + man_id.toString()
                 val result = withContext(Dispatchers.IO) {
                     URL(address).readText()
                 }
                 // now let's parse the json
-                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;
+                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
+                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/manufacturer/" + man_id.toString(), null)
                 val array = json["boards"] as JsonArray
                 for (name in array) {
                     val button : Button = Button(context);

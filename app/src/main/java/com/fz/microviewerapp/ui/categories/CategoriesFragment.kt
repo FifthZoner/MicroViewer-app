@@ -21,6 +21,7 @@ import android.widget.Button
 import android.content.Intent
 import android.widget.LinearLayout
 import androidx.core.view.get
+import com.fz.microviewerapp.DownloadJSON
 import com.fz.microviewerapp.ui.CategoryBoards
 import kotlin.jvm.java
 
@@ -45,11 +46,12 @@ class CategoriesFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val result = withContext(Dispatchers.IO) {
+                /*val result = withContext(Dispatchers.IO) {
                     URL(ApiAddress() + "categories").readText()
                 }
                 // now let's parse the json
-                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;
+                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
+                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/categories", null)
                 val array = json["categories"] as JsonArray
                 for (name in array) {
                     val button : Button = Button(context);

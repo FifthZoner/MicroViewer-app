@@ -24,6 +24,8 @@ import kotlinx.serialization.json.jsonObject
 import java.net.URL
 import androidx.core.net.toUri
 import androidx.core.view.marginBottom
+import com.fz.microviewerapp.DownloadBitmap
+import com.fz.microviewerapp.DownloadJSON
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -66,12 +68,13 @@ class ActivityDetailsFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val address = ApiAddress() + "details/" + boa_id.toString()
+                /*val address = ApiAddress() + "details/" + boa_id.toString()
                 val result = withContext(Dispatchers.IO) {
                     URL(address).readText()
                 }
                 // now let's parse the json
-                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;
+                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
+                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/details/" + boa_id.toString(), null)
                 try {
                     binding.chipText.text = json["chi_name"].toString().removeSurrounding("\"");
                     binding.manufacturerText.text = json["man_name"].toString().removeSurrounding("\"");
@@ -119,11 +122,7 @@ class ActivityDetailsFragment : Fragment() {
                         binding.items.addView(button)
                     }
 
-                    val link = json["boa_image"].toString().removeSurrounding("\"")
-                    val bytes = withContext(Dispatchers.IO) {
-                        URL(link).readBytes()
-                    }
-                    val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size);
+                    val image = DownloadBitmap(viewLifecycleOwner.lifecycleScope, json["boa_image"].toString().removeSurrounding("\""), null)
                     binding.mainImage.setImageBitmap(image)
                 }
                 catch (e: Exception) {}

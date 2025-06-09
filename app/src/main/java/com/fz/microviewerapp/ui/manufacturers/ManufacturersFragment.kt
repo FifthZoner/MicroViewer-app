@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.fz.microviewerapp.databinding.FragmentManufacturersBinding
 import androidx.lifecycle.lifecycleScope
 import com.fz.microviewerapp.ApiAddress
+import com.fz.microviewerapp.DownloadJSON
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -43,11 +44,12 @@ class ManufacturersFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val result = withContext(Dispatchers.IO) {
+                /*val result = withContext(Dispatchers.IO) {
                     URL(ApiAddress() + "manufacturers").readText()
                 }
                 // now let's parse the json
-                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;
+                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
+                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/manufacturers", null)
                 val array = json["manufacturers"] as JsonArray
                 for (name in array) {
                     val button : Button = Button(context);
