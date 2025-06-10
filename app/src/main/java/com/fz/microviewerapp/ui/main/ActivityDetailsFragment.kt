@@ -1,32 +1,22 @@
 package com.fz.microviewerapp.ui.main
 
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.constraintlayout.widget.ConstraintSet.Constraint
-import androidx.constraintlayout.widget.ConstraintSet.Layout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.fz.microviewerapp.ApiAddress
 import com.fz.microviewerapp.databinding.FragmentMainBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonObject
-import java.net.URL
 import androidx.core.net.toUri
-import androidx.core.view.marginBottom
+import com.fz.microviewerapp.ActivityDetails
 import com.fz.microviewerapp.DownloadBitmap
 import com.fz.microviewerapp.DownloadJSON
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.fz.microviewerapp.ui.camera.CameraActivity
+import kotlinx.serialization.json.jsonObject
 
 
 class ActivityDetailsFragment : Fragment() {
@@ -122,8 +112,19 @@ class ActivityDetailsFragment : Fragment() {
                         binding.items.addView(button)
                     }
 
-                    val image = DownloadBitmap(viewLifecycleOwner.lifecycleScope, json["boa_image"].toString().removeSurrounding("\""), null)
-                    binding.mainImage.setImageBitmap(image)
+
+                        val button : Button = Button(context);
+                        button.text = "Camera overlay"
+                        button.isAllCaps = false;
+                        button.setOnClickListener {
+                            val intent = Intent(context, CameraActivity::class.java)
+                            startActivity(intent)
+                        }
+                        binding.items.addView(button)
+
+
+                    val boardImage = DownloadBitmap(viewLifecycleOwner.lifecycleScope, json["boa_image"].toString().removeSurrounding("\""), null)
+                    binding.mainImage.setImageBitmap(boardImage)
                 }
                 catch (e: Exception) {}
 

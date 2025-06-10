@@ -16,16 +16,26 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
 import java.lang.Thread.sleep
 import java.net.URL;
+import java.util.Hashtable
 
 private var ips = arrayOf("http://0.0.0.0:9080", "http://10.147.17.126:9080", "http://192.168.0.233:9080", "http://truenas.local:9080")
 private var apiAddress = "";
 private val minimum_api_version : Long = 3;
 
+// TODO: add cache limits
+val JSONCache = Hashtable<String, JsonObject>()
+val imageCache = Hashtable<String, Bitmap>()
+
 // launch inside a scope please, path without address like "/first/second" or a full address
 suspend fun DownloadJSON(scope: LifecycleCoroutineScope, address: String, notifyText: TextView?): JsonObject {
     notifyText?.text = "Loading..."
 
-    // TODO: add cache here
+    if (JSONCache.containsKey(address)) {
+        val result = JSONCache.get(address)
+        if (result != null) {
+            return result;
+        }
+    }
 
     var attempts = 0;
     do {
@@ -40,7 +50,9 @@ suspend fun DownloadJSON(scope: LifecycleCoroutineScope, address: String, notify
                 URL(url).readText()
             }
             notifyText?.text = ""
-            return Json{ignoreUnknownKeys = true}.parseToJsonElement(value).jsonObject
+            val json = Json{ignoreUnknownKeys = true}.parseToJsonElement(value).jsonObject
+            JSONCache.put(address, json)
+            return json
         }
         catch (_ : Exception) {
             apiAddress = ""
@@ -56,7 +68,12 @@ suspend fun DownloadJSON(scope: LifecycleCoroutineScope, address: String, notify
 suspend fun DownloadBitmap(scope: LifecycleCoroutineScope, address: String, notifyText: TextView?): Bitmap? {
     notifyText?.text = "Loading..."
 
-    // TODO: add cache here
+    if (imageCache.containsKey(address)) {
+        val result = imageCache.get(address)
+        if (result != null) {
+            return result;
+        }
+    }
 
     var attempts = 0;
     do {
@@ -67,11 +84,13 @@ suspend fun DownloadBitmap(scope: LifecycleCoroutineScope, address: String, noti
             val url = if (address.startsWith("/")) ApiAddress(scope) + address;
             else address
 
-            notifyText?.text = ""
             val bytes = withContext(Dispatchers.IO) {
                 URL(url).readBytes()
             }
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.size);
+            notifyText?.text = ""
+            val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size);
+            imageCache.put(address, image)
+            return image
         }
         catch (_ : Exception) {
             apiAddress = ""
