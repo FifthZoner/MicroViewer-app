@@ -20,7 +20,7 @@ class CameraActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_camera)
 
-
+        val boa_image_oid = intent.getLongExtra("boa_overlay_oid", 0);
 
         if (supportActionBar != null){
             supportActionBar?.setDisplayHomeAsUpEnabled(true);
@@ -35,7 +35,7 @@ class CameraActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, CameraFragment.newInstance())
+                .replace(R.id.container, CameraFragment.newInstance(boa_image_oid))
                 .commitNow()
         }
     }

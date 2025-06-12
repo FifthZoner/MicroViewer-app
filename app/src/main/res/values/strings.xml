@@ -3,7 +3,7 @@
     <string name="title_manufacturers">Manufacturers</string>
     <string name="title_categories">Categories</string>
     <string name="title_search">Search</string>
-    <string name="title_camera">Search</string>
+    <string name="title_camera">Camera overlay</string>
     <string name="search_hint">Board name here</string>
     <string name="manufacturer_boards_label">Manufacturer boards</string>
     <string name="details_label">Details</string>

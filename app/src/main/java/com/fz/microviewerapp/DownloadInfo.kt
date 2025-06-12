@@ -18,9 +18,9 @@ import java.lang.Thread.sleep
 import java.net.URL;
 import java.util.Hashtable
 
-private var ips = arrayOf("http://0.0.0.0:9080", "http://10.147.17.126:9080", "http://192.168.0.233:9080", "http://truenas.local:9080")
+private var ips = arrayOf("http://0.0.0.0:9080", "http://192.168.0.197:9080", "http://10.147.17.241:9080", "http://10.147.17.126:9080", "http://192.168.0.233:9080", "http://truenas.local:9080", "http://fedora.local:9080")
 private var apiAddress = "";
-private val minimum_api_version : Long = 3;
+private val minimum_api_version : Long = 4;
 
 // TODO: add cache limits
 val JSONCache = Hashtable<String, JsonObject>()

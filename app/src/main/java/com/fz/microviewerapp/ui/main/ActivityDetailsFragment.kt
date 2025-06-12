@@ -112,16 +112,18 @@ class ActivityDetailsFragment : Fragment() {
                         binding.items.addView(button)
                     }
 
-
+                    val boa_overlay_oid = json["boa_overlay_oid"].toString().removeSurrounding("\"");
+                    if (boa_overlay_oid != "0" && boa_overlay_oid != "null") {
                         val button : Button = Button(context);
                         button.text = "Camera overlay"
                         button.isAllCaps = false;
                         button.setOnClickListener {
                             val intent = Intent(context, CameraActivity::class.java)
+                            intent.putExtra("boa_overlay_oid", boa_overlay_oid.toLong())
                             startActivity(intent)
                         }
                         binding.items.addView(button)
-
+                    }
 
                     val boardImage = DownloadBitmap(viewLifecycleOwner.lifecycleScope, json["boa_image"].toString().removeSurrounding("\""), null)
                     binding.mainImage.setImageBitmap(boardImage)
