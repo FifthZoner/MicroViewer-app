@@ -4,17 +4,16 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.TextView
 import androidx.lifecycle.LifecycleCoroutineScope
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
-import java.lang.Thread.sleep
 import java.net.URL;
 import java.util.Hashtable
 
@@ -78,7 +77,7 @@ suspend fun DownloadBitmap(scope: LifecycleCoroutineScope, address: String, noti
     var attempts = 0;
     do {
         attempts++
-        if (attempts > 1) notifyText?.text = "Failed! Attempt number: " + attempts.toString()
+        if (attempts > 1) notifyText?.text = "Failed! Attempting number: " + attempts.toString()
 
         try {
             val url = if (address.startsWith("/")) ApiAddress(scope) + address;
@@ -103,37 +102,43 @@ suspend fun DownloadBitmap(scope: LifecycleCoroutineScope, address: String, noti
     throw Exception("Failed to load content!")
 }
 
-var mutex : Mutex = Mutex()
+suspend fun checkApi (ip: String) : String? {
+    try {
+        val address = ip + "/"
+        val result = withContext(Dispatchers.IO) { withTimeout(250) { URL(address).readText()}}
+        val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;
+        if (json["api_version"].toString().removeSurrounding("\"").toLong() >= minimum_api_version) {
+            return ip
+        }
+    }
+    catch (_: Exception) {
+    }
+    return null
+}
 
 suspend fun ApiAddress(scope: LifecycleCoroutineScope): String {
     if (apiAddress !== "") return apiAddress
 
-    val jobs = ArrayList<Job>()
-    for (n in ips) {
-        jobs.add(scope.launch {
+    val tasks = ips.map { ip ->
+        scope.async { checkApi(ip) }
+    }
+    while (true) {
+        for (task in tasks) {
             try {
-                val address = n + "/"
-                val result = withContext(Dispatchers.IO) {
-                    withTimeout(2000) {
-                        URL(address).readText()
-                }}
-                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;
-                if (json["api_version"].toString().removeSurrounding("\"").toLong() >= minimum_api_version) {
-                    mutex.lock()
-                    if (apiAddress == "") apiAddress = n;
-                    mutex.unlock()
+                if (task.isCompleted) {
+                    val result = task.await()
+                    if (result != null) {
+                        tasks.forEach { it.cancel() }
+                        apiAddress = result.toString()
+                        return apiAddress
+                    }
                 }
-            }
-            catch (e: Exception) {
-                e.printStackTrace()
-            }
-        })
+
+            } catch (_: CancellationException) {}
+        }
+        delay(5)
     }
 
-    for (n in jobs) {
-        if (apiAddress != "") return apiAddress
-        n.join()
-    }
 
     return apiAddress;
 }

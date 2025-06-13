@@ -51,7 +51,7 @@ class CategoriesFragment : Fragment() {
                 }
                 // now let's parse the json
                 val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
-                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/categories", null)
+                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/categories", binding.loadingText)
                 val array = json["categories"] as JsonArray
                 for (name in array) {
                     val button : Button = Button(context);

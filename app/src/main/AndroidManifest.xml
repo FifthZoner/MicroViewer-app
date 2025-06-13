@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MicroViewerApp"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31" >
+        tools:targetApi="30" >
         <activity
             android:name=".ui.camera.CameraActivity"
              android:label="@string/title_camera"
@@ -30,6 +30,7 @@
             android:label="@string/category_boards_label" />
         <activity
             android:name=".ActivityDetails"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/details_label" />
         <activity
             android:name=".ui.manufacturers.ManufacturerBoards"
