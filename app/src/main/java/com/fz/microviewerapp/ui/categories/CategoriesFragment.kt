@@ -19,7 +19,10 @@ import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonObject
 import android.widget.Button
 import android.content.Intent
+import android.os.Build
+import android.view.WindowInsets
 import android.widget.LinearLayout
+import androidx.annotation.RequiresApi
 import androidx.core.view.get
 import com.fz.microviewerapp.DownloadJSON
 import com.fz.microviewerapp.ui.CategoryBoards
@@ -66,7 +69,6 @@ class CategoriesFragment : Fragment() {
                     }
                     (binding.categoriesList.get(0) as LinearLayout).addView(button);
                 }
-                binding.loadingText.text = ""
             } catch (e: Exception) {
                 e.printStackTrace()
                 binding.loadingText.textSize /= 2f;

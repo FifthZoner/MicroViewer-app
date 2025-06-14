@@ -32,6 +32,7 @@ suspend fun DownloadJSON(scope: LifecycleCoroutineScope, address: String, notify
     if (JSONCache.containsKey(address)) {
         val result = JSONCache.get(address)
         if (result != null) {
+            notifyText?.text = ""
             return result;
         }
     }
@@ -70,6 +71,7 @@ suspend fun DownloadBitmap(scope: LifecycleCoroutineScope, address: String, noti
     if (imageCache.containsKey(address)) {
         val result = imageCache.get(address)
         if (result != null) {
+            notifyText?.text = ""
             return result;
         }
     }

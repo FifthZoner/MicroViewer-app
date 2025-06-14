@@ -7,9 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.content.Intent
+import android.os.Build
 import android.view.View.GONE
+import android.view.WindowInsets
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.annotation.RequiresApi
 import androidx.core.view.get
 import androidx.lifecycle.lifecycleScope
 import com.fz.microviewerapp.ActivityDetails
@@ -61,8 +64,15 @@ class CategoryBoardsFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.categoryBoards.setOnApplyWindowInsetsListener { v, insets ->
+            val navigationBarHeight = insets.getInsets(WindowInsets.Type.systemBars()).bottom
+            v.setPadding(0, 0, 0, navigationBarHeight)
+            insets
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
@@ -72,7 +82,7 @@ class CategoryBoardsFragment : Fragment() {
                 /*}*/
                 /*// now let's parse the json*/
                 /*val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
-                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/category/" + cat_id.toString(), null)
+                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/category/" + cat_id.toString(), binding.catBoaLoadingText)
                 val array = json["boards"] as JsonArray
                 for (name in array) {
                     val button : Button = Button(context);
@@ -86,7 +96,6 @@ class CategoryBoardsFragment : Fragment() {
                         startActivity(intent)}
                     (binding.boardsList.get(0) as LinearLayout).addView(button);
                 }
-                binding.catBoaLoadingText.text = ""
             } catch (e: Exception) {
                 e.printStackTrace()
                 binding.catBoaLoadingText.textSize /= 2f;

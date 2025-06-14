@@ -1,14 +1,17 @@
 package com.fz.microviewerapp.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.SearchView
+import androidx.annotation.RequiresApi
 import androidx.core.view.children
 import androidx.core.view.get
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +45,9 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        super.onViewCreated(view, savedInstanceState)
+
         binding.searchInput.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 TODO("Not yet implemented")

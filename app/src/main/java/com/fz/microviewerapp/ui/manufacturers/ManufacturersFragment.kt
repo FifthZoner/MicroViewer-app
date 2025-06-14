@@ -1,12 +1,15 @@
 package com.fz.microviewerapp.ui.manufacturers
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.annotation.RequiresApi
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -49,7 +52,7 @@ class ManufacturersFragment : Fragment() {
                 }
                 // now let's parse the json
                 val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
-                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/manufacturers", null)
+                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/manufacturers", binding.loadingText)
                 val array = json["manufacturers"] as JsonArray
                 for (name in array) {
                     val button : Button = Button(context);
@@ -64,7 +67,6 @@ class ManufacturersFragment : Fragment() {
                     }
                     (binding.manufacturersList.get(0) as LinearLayout).addView(button);
                 }
-                binding.loadingText.text = ""
             } catch (e: Exception) {
                 e.printStackTrace()
                 binding.loadingText.textSize /= 2f;
