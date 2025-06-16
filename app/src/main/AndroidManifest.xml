@@ -26,18 +26,18 @@
              android:label="@string/title_camera"
             android:exported="false" />
         <activity
-            android:name=".ui.CategoryBoards"
+            android:name=".ui.categoryBoards.CategoryBoards"
             android:label="@string/category_boards_label" />
         <activity
-            android:name=".ActivityDetails"
+            android:name=".ui.details.ActivityDetails"
             android:windowSoftInputMode="adjustResize"
             android:label="@string/details_label" />
         <activity
-            android:name=".ui.manufacturers.ManufacturerBoards"
+            android:name=".ui.manufacturerBoards.ManufacturerBoards"
             android:exported="false"
             android:label="@string/manufacturer_boards_label" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name" >
             <intent-filter>

@@ -1,36 +1,25 @@
-package com.fz.microviewerapp.ui.ui.main
+package com.fz.microviewerapp.ui.categoryBoards
 
-import androidx.fragment.app.viewModels
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.content.Intent
-import android.os.Build
-import android.view.View.GONE
 import android.view.WindowInsets
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.core.view.get
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.fz.microviewerapp.ActivityDetails
-import com.fz.microviewerapp.ApiAddress
-import com.fz.microviewerapp.DownloadJSON
-import com.fz.microviewerapp.R
-import com.fz.microviewerapp.databinding.ActivityManufacturerBoardsBinding
+import com.fz.microviewerapp.ui.details.ActivityDetails
+import com.fz.microviewerapp.connectivity.DownloadJSON
 import com.fz.microviewerapp.databinding.FragmentCategoryBoardsBinding
-import com.fz.microviewerapp.databinding.FragmentManufacturersBinding
-import com.fz.microviewerapp.databinding.FragmentManufacturersBoardListBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonObject
-import java.net.URL
-
 
 class CategoryBoardsFragment : Fragment() {
 
@@ -46,8 +35,6 @@ class CategoryBoardsFragment : Fragment() {
             }
         }
     }
-
-    private val viewModel: CategoryBoardsModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +69,11 @@ class CategoryBoardsFragment : Fragment() {
                 /*}*/
                 /*// now let's parse the json*/
                 /*val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
-                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/category/" + cat_id.toString(), binding.catBoaLoadingText)
+                val json = DownloadJSON(
+                    viewLifecycleOwner.lifecycleScope,
+                    "/category/" + cat_id.toString(),
+                    binding.catBoaLoadingText
+                )
                 val array = json["boards"] as JsonArray
                 for (name in array) {
                     val button : Button = Button(context);

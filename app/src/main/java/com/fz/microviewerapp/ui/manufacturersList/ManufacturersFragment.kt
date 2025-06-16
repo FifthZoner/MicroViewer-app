@@ -1,27 +1,20 @@
-package com.fz.microviewerapp.ui.manufacturers
+package com.fz.microviewerapp.ui.manufacturersList
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
 import android.widget.Button
 import android.widget.LinearLayout
-import androidx.annotation.RequiresApi
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fz.microviewerapp.databinding.FragmentManufacturersBinding
 import androidx.lifecycle.lifecycleScope
-import com.fz.microviewerapp.ApiAddress
-import com.fz.microviewerapp.DownloadJSON
-import kotlinx.coroutines.Dispatchers
+import com.fz.microviewerapp.connectivity.DownloadJSON
+import com.fz.microviewerapp.ui.manufacturerBoards.ManufacturerBoards
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.URL
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonObject
 

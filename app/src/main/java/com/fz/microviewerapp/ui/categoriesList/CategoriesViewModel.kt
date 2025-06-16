@@ -1,4 +1,4 @@
-package com.fz.microviewerapp.ui.categories
+package com.fz.microviewerapp.ui.categoriesList
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

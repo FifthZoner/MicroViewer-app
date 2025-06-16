@@ -1,31 +1,22 @@
-package com.fz.microviewerapp.ui.categories
+package com.fz.microviewerapp.ui.categoriesList
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.fz.microviewerapp.databinding.FragmentCategoriesBinding
 import androidx.lifecycle.lifecycleScope
-import com.fz.microviewerapp.ApiAddress
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.net.URL
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonObject
 import android.widget.Button
 import android.content.Intent
-import android.os.Build
-import android.view.WindowInsets
 import android.widget.LinearLayout
-import androidx.annotation.RequiresApi
 import androidx.core.view.get
-import com.fz.microviewerapp.DownloadJSON
-import com.fz.microviewerapp.ui.CategoryBoards
+import com.fz.microviewerapp.connectivity.DownloadJSON
+import com.fz.microviewerapp.ui.categoryBoards.CategoryBoards
 import kotlin.jvm.java
 
 class CategoriesFragment : Fragment() {

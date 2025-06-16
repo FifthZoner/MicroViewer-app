@@ -1,33 +1,20 @@
-package com.fz.microviewerapp.ui
+package com.fz.microviewerapp.ui.search
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.SearchView
-import androidx.annotation.RequiresApi
-import androidx.core.view.children
-import androidx.core.view.get
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.fz.microviewerapp.ActivityDetails
-import com.fz.microviewerapp.ApiAddress
-import com.fz.microviewerapp.DownloadJSON
-import com.fz.microviewerapp.R
-import com.fz.microviewerapp.databinding.FragmentCategoryBoardsBinding
+import com.fz.microviewerapp.ui.details.ActivityDetails
+import com.fz.microviewerapp.connectivity.DownloadJSON
 import com.fz.microviewerapp.databinding.FragmentSearchBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonObject
-import java.net.URL
 
 class SearchFragment : Fragment() {
 
@@ -64,7 +51,11 @@ class SearchFragment : Fragment() {
                                 /*}*/
                                 /*// now let's parse the json*/
                                 /*val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
-                                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/search/" + newText, null)
+                                val json = DownloadJSON(
+                                    viewLifecycleOwner.lifecycleScope,
+                                    "/search/" + newText,
+                                    null
+                                )
                                 val array = json["boards"] as JsonArray
                                 binding.searchList.removeAllViews()
                                 for (name in array) {

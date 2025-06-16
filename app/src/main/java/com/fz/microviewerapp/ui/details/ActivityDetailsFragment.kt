@@ -1,4 +1,4 @@
-package com.fz.microviewerapp.ui.main
+package com.fz.microviewerapp.ui.details
 
 import android.content.Intent
 import android.os.Build
@@ -9,18 +9,16 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.Button
 import androidx.annotation.RequiresApi
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.fz.microviewerapp.connectivity.DownloadBitmap
+import com.fz.microviewerapp.connectivity.DownloadJSON
 import com.fz.microviewerapp.databinding.FragmentMainBinding
-import kotlinx.coroutines.launch
-import androidx.core.net.toUri
-import com.fz.microviewerapp.ActivityDetails
-import com.fz.microviewerapp.DownloadBitmap
-import com.fz.microviewerapp.DownloadJSON
 import com.fz.microviewerapp.ui.camera.CameraActivity
-import kotlinx.serialization.json.jsonObject
-
+import com.fz.microviewerapp.ui.main.MainViewModel
+import kotlinx.coroutines.launch
 
 class ActivityDetailsFragment : Fragment() {
 
@@ -74,7 +72,11 @@ class ActivityDetailsFragment : Fragment() {
                 }
                 // now let's parse the json
                 val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
-                val json = DownloadJSON(viewLifecycleOwner.lifecycleScope, "/details/" + boa_id.toString(), null)
+                val json = DownloadJSON(
+                    viewLifecycleOwner.lifecycleScope,
+                    "/details/" + boa_id.toString(),
+                    null
+                )
                 try {
                     binding.chipText.text = json["chi_name"].toString().removeSurrounding("\"");
                     binding.manufacturerText.text = json["man_name"].toString().removeSurrounding("\"");
@@ -135,7 +137,11 @@ class ActivityDetailsFragment : Fragment() {
                         binding.items.addView(button)
                     }
 
-                    val boardImage = DownloadBitmap(viewLifecycleOwner.lifecycleScope, json["boa_image"].toString().removeSurrounding("\""), null)
+                    val boardImage = DownloadBitmap(
+                        viewLifecycleOwner.lifecycleScope,
+                        json["boa_image"].toString().removeSurrounding("\""),
+                        null
+                    )
                     binding.mainImage.setImageBitmap(boardImage)
                 }
                 catch (e: Exception) {}

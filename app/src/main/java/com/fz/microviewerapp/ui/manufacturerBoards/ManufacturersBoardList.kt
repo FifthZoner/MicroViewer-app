@@ -1,4 +1,4 @@
-package com.fz.microviewerapp.ui.manufacturers
+package com.fz.microviewerapp.ui.manufacturerBoards
 
 import android.content.Intent
 import android.os.Build
@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.Button
@@ -14,20 +13,12 @@ import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.core.view.get
 import androidx.lifecycle.lifecycleScope
-import com.fz.microviewerapp.ActivityDetails
-import com.fz.microviewerapp.ApiAddress
-import com.fz.microviewerapp.DownloadJSON
-import com.fz.microviewerapp.R
-import com.fz.microviewerapp.databinding.ActivityManufacturerBoardsBinding
-import com.fz.microviewerapp.databinding.FragmentManufacturersBinding
+import com.fz.microviewerapp.ui.details.ActivityDetails
+import com.fz.microviewerapp.connectivity.DownloadJSON
 import com.fz.microviewerapp.databinding.FragmentManufacturersBoardListBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonObject
-import java.net.URL
 
 class ManufacturersBoardList : Fragment() {
     private var man_id: Long? = null

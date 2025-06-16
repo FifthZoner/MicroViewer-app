@@ -1,4 +1,4 @@
-package com.fz.microviewerapp.ui.manufacturers
+package com.fz.microviewerapp.ui.manufacturerBoards
 
 import android.os.Bundle
 import android.view.MenuItem

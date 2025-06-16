@@ -1,43 +1,29 @@
 package com.fz.microviewerapp.ui.camera
 
 import android.Manifest
-import android.R.string
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.fz.microviewerapp.DownloadBitmap
-import com.fz.microviewerapp.DownloadJSON
-import com.fz.microviewerapp.R
+import com.fz.microviewerapp.connectivity.DownloadJSON
 import com.fz.microviewerapp.databinding.FragmentCameraBinding
-import com.fz.microviewerapp.databinding.FragmentMainBinding
-import com.fz.microviewerapp.ui.ui.main.CategoryBoardsFragment
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.jsonObject
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
-import kotlin.random.Random
-import kotlin.text.String
-import kotlin.text.get
 
 
 class CameraFragment : Fragment() {

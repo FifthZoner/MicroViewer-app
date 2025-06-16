@@ -1,4 +1,4 @@
-package com.fz.microviewerapp;
+package com.fz.microviewerapp.connectivity
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,7 +8,6 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlinx.serialization.json.Json

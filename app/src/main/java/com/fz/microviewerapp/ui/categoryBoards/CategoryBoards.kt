@@ -1,19 +1,20 @@
-package com.fz.microviewerapp
+package com.fz.microviewerapp.ui.categoryBoards
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import com.fz.microviewerapp.ui.main.ActivityDetailsFragment
+import androidx.appcompat.app.AppCompatActivity
+import com.fz.microviewerapp.R
+import com.fz.microviewerapp.ui.categoryBoards.CategoryBoardsFragment
 
-class ActivityDetails : AppCompatActivity() {
+class CategoryBoards : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_activity_details)
+        setContentView(R.layout.activity_category_boards)
 
-        val boa_id = intent.getLongExtra("boa_id", 0);
-        val boa_name = intent.getStringExtra("boa_name");
-        if (boa_name != "") setTitle(boa_name)
+        val cat_id = intent.getLongExtra("cat_id", 0);
+        val cat_name = intent.getStringExtra("cat_name");
+        if (cat_name != "") setTitle(cat_name)
 
         if (supportActionBar != null){
             supportActionBar?.setDisplayHomeAsUpEnabled(true);
@@ -22,7 +23,7 @@ class ActivityDetails : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ActivityDetailsFragment.newInstance(boa_id))
+                .replace(R.id.container, CategoryBoardsFragment.Companion.newInstance(cat_id))
                 .commitNow()
         }
     }
