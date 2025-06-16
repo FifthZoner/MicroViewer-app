@@ -93,6 +93,8 @@ class SearchFragment : Fragment() {
                 return false;
             }
         })
+
+        binding.searchInput.isIconified = false
     }
 
     companion object {

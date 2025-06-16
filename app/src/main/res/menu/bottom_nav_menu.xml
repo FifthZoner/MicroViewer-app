@@ -3,17 +3,17 @@
 
     <item
             android:id="@+id/navigation_manufacturers"
-            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:icon="@drawable/baseline_construction_24"
             android:title="@string/title_manufacturers" />
 
     <item
             android:id="@+id/navigation_categories"
-            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:icon="@drawable/baseline_category_24"
             android:title="@string/title_categories" />
 
     <item
             android:id="@+id/navigation_search"
-            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:icon="@drawable/baseline_search_24"
             android:title="@string/title_search" />
 
 </menu>
