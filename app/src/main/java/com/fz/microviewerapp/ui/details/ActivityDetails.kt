@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.fz.microviewerapp.R
+import com.fz.microviewerapp.ui.details.ActivityDetailsFragment
 
 class ActivityDetails : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_details)
+        setContentView(R.layout.activity_activity_details)
 
         val boa_id = intent.getLongExtra("boa_id", 0);
         val boa_name = intent.getStringExtra("boa_name");

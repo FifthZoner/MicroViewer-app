@@ -1,20 +1,23 @@
 package com.fz.microviewerapp.ui.search
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.fz.microviewerapp.ui.details.ActivityDetails
 import com.fz.microviewerapp.connectivity.DownloadJSON
 import com.fz.microviewerapp.databinding.FragmentSearchBinding
+import com.fz.microviewerapp.ui.details.ActivityDetails
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.jsonObject
+
 
 class SearchFragment : Fragment() {
 
@@ -86,6 +89,21 @@ class SearchFragment : Fragment() {
         })
 
         binding.searchInput.isIconified = false
+        binding.searchInput.requestFocus();
+        binding.searchInput.setFocusable(true);
+        binding.searchInput.postDelayed(mShowSoftInputRunnable, 200);
+
+    }
+
+    private val mShowSoftInputRunnable: Runnable = object : Runnable {
+        override fun run() {
+            val activity = getActivity()
+            if (activity == null) return
+
+            val input =
+                activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            input.showSoftInput(binding.searchInput, InputMethodManager.SHOW_IMPLICIT)
+        }
     }
 
     companion object {
