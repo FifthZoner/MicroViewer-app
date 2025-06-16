@@ -66,12 +66,6 @@ class ActivityDetailsFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                /*val address = ApiAddress() + "details/" + boa_id.toString()
-                val result = withContext(Dispatchers.IO) {
-                    URL(address).readText()
-                }
-                // now let's parse the json
-                val json = Json {ignoreUnknownKeys = true}.parseToJsonElement(result).jsonObject;*/
                 val json = DownloadJSON(
                     viewLifecycleOwner.lifecycleScope,
                     "/details/" + boa_id.toString(),
