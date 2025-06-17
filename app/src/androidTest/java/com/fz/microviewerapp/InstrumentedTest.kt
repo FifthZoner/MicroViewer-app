@@ -43,7 +43,7 @@ class LifecycleOwnerRule : TestWatcher() {
 }
 
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class InstrumentedTest {
     @Test
     fun useAppContext() {
         // Context of the app under test.
